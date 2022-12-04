@@ -6,7 +6,6 @@ import usersService from '../../service'
 
 export const createUser = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
-
         const user = await usersService.createUser({
             name: event.body.name,
             email: event.body.email,
@@ -24,6 +23,8 @@ export const createUser = middyfy(async (event: APIGatewayProxyEvent): Promise<A
 })
 
 export const getUser = middyfy(async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+    console.log(event)
+    console.log(JSON.stringify(event))
     const name = event.pathParameters.name;
     try {
         const user = await usersService.getUser(name)
@@ -42,6 +43,7 @@ export const deleteUser = middyfy(async (event: APIGatewayProxyEvent): Promise<A
     const name = event.pathParameters.name;
     try {
         const user = await usersService.deleteUser(name)
+        console.log(user)
         return formatJSONResponse({
             user, name
         });
